@@ -1,0 +1,30 @@
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>girlitz</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src="js/vendor/modernizr.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controller.js"></script>
+  </head>
+  <body>
+    <div class="container">
+
+      <nav class="navbar navbar-default" role="navigation">
+        <a class="navbar-brand" href="#">Shop</a>
+        <ul class="nav navbar-nav">
+          <li><a ng-href="#/">Startseite</a></li>
+          <li><a ng-href="#/about">Über</a></li>
+        </ul>
+      </nav>
+
+      <div class="row">
+        <div class="col-sm-8" ng-view>Inhalt</div>
+        <div class="col-sm-4" ng-include="'partial/cart.html'">Warenkorb</div>
+      </div>
+
+    </div>
+  </body>
+</html>

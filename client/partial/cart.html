@@ -1,0 +1,21 @@
+<div ng-controller="CartsController">
+    <h3>Warenkorb</h3>
+    <div ng-hide="cart.items.length" class="alert alert-notice">Ihr Warenkorb ist noch leer.</div>
+    <table ng-show="cart.items.length" class="table">
+        <tr ng-repeat="item in cart.items">
+            <td>{{item.name}}</td>
+            <td>{{item.price | currency}}</td>
+            <td>
+                <div class="btn-group">
+                    <a href ng-click="cart.copyItem(item)" class="btn btn-success btn-sm">+</a>
+                    <a href ng-click="cart.removeItem(item)" class="btn btn-danger btn-sm">-</a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>{{cart.items.length}} Artikel</td>
+            <td>{{cart.sum() | currency }}</td>
+            <td></td>
+        </tr>
+    </table>
+</div>
