@@ -25,6 +25,12 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(err, req, res, next) {
+  if (err.constructor.name === 'UnauthorizedError') {
+    res.json(401, {"message" : "Unauthorized Error"});
+  }
+});
+
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
