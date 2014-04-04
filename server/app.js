@@ -5,7 +5,7 @@ var expressJwt = require('express-jwt');
 var MongoClient = require('mongodb').MongoClient;
 var app = express();
 
-MongoClient.connect(process.env['MONGOLAB_URI'] || 'mongodb://localhost:27017/girlitz', function(err, db) {
+MongoClient.connect(process.env['MONGO_URI'] || 'mongodb://localhost:27017/girlitz', function(err, db) {
   "use strict";
   if(err) throw err;
 
