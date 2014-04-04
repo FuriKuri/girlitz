@@ -3,7 +3,7 @@ var GitHubHandler = require('./github');
 var CallbackHandler = require('./callback');
 var BookHandler = require('./book');
 
-module.exports = exports = function(app) {
+module.exports = exports = function(app, db) {
   var contentHandler = new ContentHandler();
   var callbackHandler = new CallbackHandler();
   var gitHubHandler = new GitHubHandler();

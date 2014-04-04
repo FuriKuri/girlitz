@@ -2,10 +2,9 @@ var app = angular.module("app", ['ngRoute']);
 
 app.config(function($routeProvider) {
     $routeProvider.
-        when('/', { templateUrl: '/partial/articles.html', controller: ArticlesController }).
-        when('/about', { templateUrl: '/partial/about.html', controller: AboutController }).
+        when('/', { templateUrl: '/partial/books.html', controller: ArticlesController }).
         when('/auth', { templateUrl: '/partial/auth.html', controller: AuthController }).
-        when('/login', { templateUrl: '/html/login.html', controller: LoginController }).
+        when('/login', { templateUrl: '/partial/login.html' }).
         when('/logout', { templateUrl: '/html/login.html', controller: LogoutController }).
         when('/callback', { templateUrl: '/partial/about.html', controller: CallbackController }).
         otherwise({ redirectTo: '/'});
@@ -13,9 +12,8 @@ app.config(function($routeProvider) {
 
 app.run(function($rootScope, $location, $window) {
   $rootScope.$on( "$routeChangeStart", function(event, next, current) {
-    if ( $window.sessionStorage.loggedUser == null  || $window.sessionStorage.token == null ) {
-      if ( next.templateUrl == "/partials/login.html" || next.templateUrl == "/partial/auth.html" ) {
-      } else {
+    if ($window.sessionStorage.loggedUser == null || $window.sessionStorage.token == null) {
+      if (!next.templateUrl == "/partials/login.html" && !next.templateUrl == "/partial/auth.html") {
         $location.path( "/login" );
       }
     }
@@ -26,8 +24,10 @@ app.factory('authInterceptor', function ($rootScope, $location, $q, $window) {
   return {
     request: function (config) {
       config.headers = config.headers || {};
-      if ($window.sessionStorage.token) {
+      if ($window.sessionStorage.token && config.url.indexOf("/api") == 0) {
         config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+      } else {
+        config.headers.Authorization = undefined;
       }
       return config;
     },

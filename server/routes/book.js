@@ -3,16 +3,16 @@ function BookHandler() {
 
   this.list = function (req, res) {
     "use strict";
+    console.log("User is " + req.user.id);
     res.json([
       {
-        "id": 1,
-        "name": "Book",
-        "price": 11
+        "isbn": 1,
+        "name": "Book"
       },
       {
-        "id": 2,
-        "name": "Paper!",
-        "price": 22}
+        "isbn": 2,
+        "name": "Paper!"
+      }
     ]);
   }
 }
