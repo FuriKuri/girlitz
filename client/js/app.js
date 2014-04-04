@@ -46,22 +46,16 @@ app.config(function ($httpProvider) {
   $httpProvider.interceptors.push('authInterceptor');
 });
 
-app.factory('Cart', function() {
+app.factory('BookList', function() {
     var items = [];
 
     return {
         items: items,
-        addArticle: function(article) {
-            items.push(article);
+        add: function(book) {
+            items.push(book);
         },
-        copyItem: function(item) {
-            return items.splice(items.indexOf(item), 0, item);
-        },
-        removeItem: function(item) {
-            return items.splice(items.indexOf(item),1);
-        },
-        sum: function() {
-            return items.reduce(function(total, article) { return total + article.price; }, 0);
+        remove: function(book) {
+            return items.splice(items.indexOf(book),1);
         }
     };
 });

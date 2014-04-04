@@ -7,7 +7,7 @@
   <tr ng-repeat="book in books | filter:search">
     <td>{{book.isbn}}</td>
     <td>{{book.name}}</td>
-    <td><a href class="btn btn-default btn-sm" ng-click="cart.addArticle(article);">Delete</a></td>
+    <td><a href class="btn btn-default btn-sm" ng-click="bookList.remove(book);">Delete</a></td>
   </tr>
 </table>
 

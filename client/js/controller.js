@@ -29,8 +29,8 @@ function CallbackController($scope, $routeParams) {
   $scope.par = $routeParams.code;
 }
 
-function ArticlesController($scope, $http, $location, $window, Cart) {
-  $scope.cart = Cart;
+function ArticlesController($scope, $http, $location, $window, BookList) {
+  $scope.bookList = BookList;
   $scope.username = $window.sessionStorage.loggedUser;
   $http.get('/api/books').then(
       function (articlesResponse) {
