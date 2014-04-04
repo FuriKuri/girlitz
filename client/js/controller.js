@@ -1,7 +1,3 @@
-function CartsController($scope, Cart) {
-  $scope.cart = Cart;
-}
-
 function AboutController($scope, $window) {
   $scope.login = true;
   $scope.par = $window.sessionStorage.loggedUser + " " + $window.sessionStorage.token;
