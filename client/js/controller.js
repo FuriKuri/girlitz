@@ -3,7 +3,7 @@ function AuthController($routeParams, $http, $location, $window, $scope) {
       .success(function (data, status, headers, config) {
         $window.sessionStorage.loggedUser = data.username;
         $window.sessionStorage.token = data.token;
-        $location.path('/main');
+        $location.url('/');
       })
       .error(function (data, status, headers, config) {
         $location.path('/login');
