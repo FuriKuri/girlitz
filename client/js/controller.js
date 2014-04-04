@@ -1,8 +1,3 @@
-function AboutController($scope, $window) {
-  $scope.login = true;
-  $scope.par = $window.sessionStorage.loggedUser + " " + $window.sessionStorage.token;
-}
-
 function AuthController($routeParams, $http, $location, $window, $scope) {
   $http.get('/app/login/github?code=' + $routeParams.code)
       .success(function (data, status, headers, config) {
