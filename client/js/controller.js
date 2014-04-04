@@ -49,7 +49,7 @@ function BookController($scope, $http) {
   $scope.searchBook = function(isbn) {
     console.log("Search for: " + isbn);
     if (isbn.length == 10) {
-      $http.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn, {headers: {'Authorization': null}})
+      $http.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn)
           .success(function (data, status, headers, config) {
             $scope.book.name = data.items[0].volumeInfo.title;
             $scope.showBook = true;
