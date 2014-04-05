@@ -2,7 +2,7 @@ var app = angular.module("app", ['ngRoute']);
 
 app.config(function ($routeProvider) {
   $routeProvider.
-      when('/', { templateUrl: '/partial/books.html', controller: ArticlesController }).
+      when('/', { templateUrl: '/partial/books.html', controller: BookListController }).
       when('/auth', { templateUrl: '/partial/auth.html', controller: AuthController }).
       when('/login', { templateUrl: '/partial/login.html' }).
       when('/logout', { templateUrl: '/html/login.html', controller: LogoutController }).

@@ -16,7 +16,7 @@ function LogoutController($window, $location) {
   $location.path('/login');
 }
 
-function ArticlesController($scope, $http, $location, $window, BookList) {
+function BookListController($scope, $http, $location, $window, BookList) {
   $scope.bookList = BookList;
   $scope.username = $window.sessionStorage.loggedUser;
   $http.get('/api/books').then(
