@@ -1,8 +1,10 @@
 var request = require('request');
 var jwt = require('jsonwebtoken');
+var UsersDAO = require('../users').UsersDAO;
 
-function GitHubHandler() {
+function GitHubHandler(db) {
   "use strict";
+  var users = new UsersDAO(db);
 
   this.login = function (req, res) {
     "use strict";
@@ -28,13 +30,17 @@ function GitHubHandler() {
           'User-Agent': 'furikuri'};
         request(opt, function (error, result, body) {
           var userInfo = JSON.parse(body);
-          var user = userInfo['login'];
+          var username = userInfo['login'];
           var id = userInfo['id'];
-          var profile = {'id' : "GitHub#" + id, 'user': user};
+          var profile = {'id' : "GitHub#" + id, 'username': username};
           var token = jwt.sign(profile, process.env['TOKEN_SECRET'], { expiresInMinutes: 60 * 24 * 30 });
-          res.json({
-            "username" : user,
-            "token" : token
+          users.create(profile.id, username ,function(err, insertedUser) {
+            if (err) throw err;
+
+            res.json({
+              "username" : username,
+              "token" : token
+            });
           });
         });
       } else {
