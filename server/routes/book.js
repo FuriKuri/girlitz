@@ -23,6 +23,7 @@ function BookHandler(db) {
           });
         }
       });
+      res.json({message: 'book was not found'});
     });
   };
 
@@ -31,7 +32,7 @@ function BookHandler(db) {
     users.find(req.user.id, function(err, user) {
       var alreadyHasTheBook = false;
       user.books.forEach(function(book) {
-        if (book.isbn == req.body.isbn) {
+        if (book.isbn == req.param('isbn')) {
           alreadyHasTheBook = true;
         }
       });
@@ -39,7 +40,7 @@ function BookHandler(db) {
         res.json({message: 'already have this book'});
       } else {
         user.books.push({
-          isbn: req.body.isbn,
+          isbn: req.param('isbn'),
           name: req.body.name
         });
         users.update(user, function(err, user) {

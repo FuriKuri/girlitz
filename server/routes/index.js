@@ -13,6 +13,6 @@ module.exports = exports = function(app, db) {
   app.get('/app/login/github', gitHubHandler.login);
 
   app.get('/api/books', bookHandler.list);
-  app.put('/api/book', bookHandler.add);
+  app.put('/api/book/:isbn', bookHandler.add);
   app.delete('/api/book/:isbn', bookHandler.delete);
 }

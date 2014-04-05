@@ -35,7 +35,7 @@ function BookController($scope, $http, BookList) {
     if (!BookList.contains(book)) {
       BookList.add(book);
       $scope.book = {};
-      $http.put('/api/book', book).then(
+      $http.put('/api/book/' + book.isbn, book).then(
           function (message) {
             console.log(message);
           }
