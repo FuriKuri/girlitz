@@ -35,11 +35,14 @@ function BookController($scope, $http) {
     if (isbn.length == 10) {
       $http.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn)
           .success(function (data, status, headers, config) {
-            $scope.book.name = data.items[0].volumeInfo.title;
-            $scope.showBook = true;
+            if (data.items) {
+              $scope.book.name = data.items[0].volumeInfo.title;
+            } else {
+              $scope.book.name = undefined;
+            }
           });
     } else {
-      $scope.showBook = false;
+      $scope.book.name = undefined;
     }
   }
 }

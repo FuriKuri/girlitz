@@ -83,6 +83,9 @@ app.factory('BookList', function ($http) {
           }
       );
       return items.splice(items.indexOf(book), 1);
+    },
+    empty: function() {
+      return items.length == 0;
     }
   };
 });

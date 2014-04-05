@@ -2,7 +2,7 @@
   <h3>Buch hinzufügen</h3>
   <input type="text" ng-model="book.isbn" placeholder="ISBN" class="form-control" ng-change="searchBook(book.isbn)">
   <p>Du suchst gerade nach: {{book.isbn}}</p>
-  <div ng-show="showBook">
+  <div ng-show="book.name">
     <h4>{{book.name}}</h4>
     <a href ng-click="bookList.add(book); book = {};" class="small button">Hinzufügen</a>
   </div>

@@ -1,14 +1,16 @@
 <h2>Hi {{username}}. Deine Bücher</h2>
-<form>
+<form ng-hide="bookList.empty()">
   <input type="text" ng-model="search.name" placeholder="Suche" class="form-control">
 </form>
 
-<table class="table">
+<table class="table" ng-hide="bookList.empty()">
   <tr ng-repeat="book in bookList.books | filter:search">
     <td>{{book.isbn}}</td>
     <td>{{book.name}}</td>
     <td><a href class="btn btn-default btn-sm" ng-click="bookList.remove(book);">Delete</a></td>
   </tr>
 </table>
+
+<p ng-show="bookList.empty()">Du hast momentan keine Bücher :( </p>
 
 <div ng-include="'/partial/book.html'">Bucher</div>
