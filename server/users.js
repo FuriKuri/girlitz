@@ -13,16 +13,7 @@ function UsersDAO(db) {
       _id: id,
       username: username,
       registration_date: new Date(),
-      books: [
-        {
-          "isbn": 1,
-          "name": "Book"
-        },
-        {
-          "isbn": 2,
-          "name": "Paper!"
-        }
-      ]
+      books: []
     };
     this.find(id, function(err, existingUser) {
       if (err) callback(err, null);
@@ -43,14 +34,14 @@ function UsersDAO(db) {
       if (err) callback(err, null);
       callback(user, null);
     });
-  }
+  };
 
   this.find = function(id, callback) {
     users.findOne({_id: id}, function(err, user) {
       if (err) callback(err, null);
       callback(null, user);
     });
-  }
+  };
 }
 
 module.exports.UsersDAO = UsersDAO;

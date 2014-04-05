@@ -13,6 +13,19 @@ function BookHandler(db) {
     });
   };
 
+  this.delete = function(req, res) {
+    users.find(req.user.id, function(err, user) {
+      user.books.forEach(function(book) {
+        if (book.isbn == req.param('isbn')) {
+          user.books.splice(user.books.indexOf(book), 1);
+          users.update(user, function(err, user) {
+            res.json({message: 'ok'});
+          });
+        }
+      });
+    });
+  };
+
   this.add = function(req, res) {
     "use strict";
     users.find(req.user.id, function(err, user) {

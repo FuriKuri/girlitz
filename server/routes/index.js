@@ -14,4 +14,5 @@ module.exports = exports = function(app, db) {
 
   app.get('/api/books', bookHandler.list);
   app.put('/api/book', bookHandler.add);
+  app.delete('/api/book/:isbn', bookHandler.delete);
 }

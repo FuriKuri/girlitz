@@ -32,8 +32,15 @@ function BookController($scope, $http, BookList) {
   $scope.book = {};
 
   $scope.addBook = function(book) {
-    BookList.add(book);
-    $scope.book = {};
+    if (!BookList.contains(book)) {
+      BookList.add(book);
+      $scope.book = {};
+      $http.put('/api/book', book).then(
+          function (message) {
+            console.log(message);
+          }
+      );
+    }
   };
 
   $scope.searchBook = function(isbn) {

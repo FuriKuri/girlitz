@@ -53,8 +53,19 @@ app.factory('BookList', function () {
   var items = [];
   return {
     books: items,
+    contains: function(book) {
+      var alreadyInList = false;
+      items.forEach(function(item) {
+        if (item.isbn == book.isbn) {
+          alreadyInList = true;
+        }
+      });
+      return alreadyInList;
+    },
     add: function (book) {
-      items.push(book);
+      if (!this.contains(book)) {
+        items.push(book);
+      }
     },
     addAll: function (books) {
       items.push.apply(items, books);
