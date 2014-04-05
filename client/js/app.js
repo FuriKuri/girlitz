@@ -20,7 +20,7 @@ app.run(function($rootScope, $location, $window) {
   });
 
   if ($window.sessionStorage.loggedUser == null || $window.sessionStorage.token == null) {
-    if (!next.templateUrl == "/partials/login.html" && !next.templateUrl == "/partial/auth.html") {
+    if (!($location.$$path == "/auth" || $location.$$path == "/login")) {
       $location.path( "/login" );
     }
   }
