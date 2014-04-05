@@ -25,29 +25,22 @@ function ArticlesController($scope, $http, $location, $window, BookList) {
   $scope.username = $window.sessionStorage.loggedUser;
   $http.get('/api/books').then(
       function (articlesResponse) {
-        $scope.books = articlesResponse.data;
+        BookList.addAll(articlesResponse.data);
       },
       function () {
-        console.log("Redirect to login page");
         $location.path('/login');
       });
 }
 
-function BookController($scope, $http) {
-  $scope.book = {
-    isbn: '',
-    name: '',
-    add: function() {
-      console.log("add " + this.isbn);
-      $scope.books.push({isbn: this.isbn, name: this.name});
-      this.isbn = '';
-      this.name = '';
-      $scope.showBook = false;
-    }
+function BookController($scope, $http, BookList) {
+  $scope.book = {};
+
+  $scope.addBook = function(book) {
+    BookList.add(book);
+    $scope.book = {};
   };
 
   $scope.searchBook = function(isbn) {
-    console.log("Search for: " + isbn);
     if (isbn.length == 10) {
       $http.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn)
           .success(function (data, status, headers, config) {

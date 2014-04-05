@@ -39,8 +39,6 @@ app.factory('authInterceptor', function ($rootScope, $location, $q, $window) {
     },
     response: function (response) {
       if (response.status === 401) {
-        // error message
-        console.log("Error");
         $location.path( "/login" );
       }
       return response || $q.when(response);
@@ -54,14 +52,17 @@ app.config(function ($httpProvider) {
 
 app.factory('BookList', function() {
     var items = [];
-
     return {
-        items: items,
-        add: function(book) {
-            items.push(book);
-        },
-        remove: function(book) {
-            return items.splice(items.indexOf(book),1);
-        }
+      books: items,
+      add: function(book) {
+        items.push(book);
+      },
+      addAll: function(books) {
+        items.push.apply(items, books);
+      },
+      remove: function(book) {
+        console.log(items.indexOf(book));
+        return items.splice(items.indexOf(book),1);
+      }
     };
 });
