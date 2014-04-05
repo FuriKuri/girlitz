@@ -18,6 +18,12 @@ app.run(function($rootScope, $location, $window) {
       }
     }
   });
+
+  if ($window.sessionStorage.loggedUser == null || $window.sessionStorage.token == null) {
+    if (!next.templateUrl == "/partials/login.html" && !next.templateUrl == "/partial/auth.html") {
+      $location.path( "/login" );
+    }
+  }
 });
 
 app.factory('authInterceptor', function ($rootScope, $location, $q, $window) {
