@@ -16,10 +16,6 @@ function LogoutController($window, $location) {
   $location.path('/login');
 }
 
-function CallbackController($scope, $routeParams) {
-  $scope.par = $routeParams.code;
-}
-
 function ArticlesController($scope, $http, $location, $window, BookList) {
   $scope.bookList = BookList;
   $scope.username = $window.sessionStorage.loggedUser;

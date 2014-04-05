@@ -6,7 +6,6 @@ app.config(function ($routeProvider) {
       when('/auth', { templateUrl: '/partial/auth.html', controller: AuthController }).
       when('/login', { templateUrl: '/partial/login.html' }).
       when('/logout', { templateUrl: '/html/login.html', controller: LogoutController }).
-      when('/callback', { templateUrl: '/partial/about.html', controller: CallbackController }).
       otherwise({ redirectTo: '/'});
 });
 
