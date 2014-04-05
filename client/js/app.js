@@ -49,7 +49,7 @@ app.config(function ($httpProvider) {
   $httpProvider.interceptors.push('authInterceptor');
 });
 
-app.factory('BookList', function () {
+app.factory('BookList', function ($http) {
   var items = [];
   return {
     books: items,
@@ -65,6 +65,11 @@ app.factory('BookList', function () {
     add: function (book) {
       if (!this.contains(book)) {
         items.push(book);
+        $http.put('/api/book/' + book.isbn, book).then(
+            function (message) {
+              console.log(message);
+            }
+        );
       }
     },
     addAll: function (books) {
@@ -72,6 +77,11 @@ app.factory('BookList', function () {
     },
     remove: function (book) {
       console.log(items.indexOf(book));
+      $http.delete('/api/book/' + book.isbn).then(
+          function (message) {
+            console.log(message);
+          }
+      );
       return items.splice(items.indexOf(book), 1);
     }
   };

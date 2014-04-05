@@ -6,7 +6,6 @@ function BookHandler(db) {
 
   this.list = function (req, res) {
     "use strict";
-    console.log("User is " + req.user.id);
     users.find(req.user.id, function(err, user) {
       if (err) throw err;
       res.json(user.books);

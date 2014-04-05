@@ -28,20 +28,8 @@ function ArticlesController($scope, $http, $location, $window, BookList) {
       });
 }
 
-function BookController($scope, $http, BookList) {
+function BookController($scope, $http) {
   $scope.book = {};
-
-  $scope.addBook = function(book) {
-    if (!BookList.contains(book)) {
-      BookList.add(book);
-      $scope.book = {};
-      $http.put('/api/book/' + book.isbn, book).then(
-          function (message) {
-            console.log(message);
-          }
-      );
-    }
-  };
 
   $scope.searchBook = function(isbn) {
     if (isbn.length == 10) {
