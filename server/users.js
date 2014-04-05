@@ -13,11 +13,20 @@ function UsersDAO(db) {
       _id: id,
       username: username,
       registration_date: new Date(),
-      books: []
+      books: [
+        {
+          "isbn": 1,
+          "name": "Book"
+        },
+        {
+          "isbn": 2,
+          "name": "Paper!"
+        }
+      ]
     };
     this.find(id, function(err, existingUser) {
       if (err) callback(err, null);
-      
+
       if (!existingUser) {
         users.insert(user, function(err, inserted) {
           if (err) callback(err, null);
@@ -28,6 +37,13 @@ function UsersDAO(db) {
       }
     });
   };
+
+  this.update = function(user, callback) {
+    users.save(user, function(err, updated) {
+      if (err) callback(err, null);
+      callback(user, null);
+    });
+  }
 
   this.find = function(id, callback) {
     users.findOne({_id: id}, function(err, user) {
