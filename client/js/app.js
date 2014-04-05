@@ -1,19 +1,19 @@
 var app = angular.module("app", ['ngRoute']);
 
-app.config(function($routeProvider) {
-    $routeProvider.
-        when('/', { templateUrl: '/partial/books.html', controller: ArticlesController }).
-        when('/auth', { templateUrl: '/partial/auth.html', controller: AuthController }).
-        when('/login', { templateUrl: '/partial/login.html' }).
-        when('/logout', { templateUrl: '/html/login.html', controller: LogoutController }).
-        when('/callback', { templateUrl: '/partial/about.html', controller: CallbackController }).
-        otherwise({ redirectTo: '/'});
+app.config(function ($routeProvider) {
+  $routeProvider.
+      when('/', { templateUrl: '/partial/books.html', controller: ArticlesController }).
+      when('/auth', { templateUrl: '/partial/auth.html', controller: AuthController }).
+      when('/login', { templateUrl: '/partial/login.html' }).
+      when('/logout', { templateUrl: '/html/login.html', controller: LogoutController }).
+      when('/callback', { templateUrl: '/partial/about.html', controller: CallbackController }).
+      otherwise({ redirectTo: '/'});
 });
 
 app.run(function($rootScope, $location, $window) {
   $rootScope.$on( "$routeChangeStart", function(event, next, current) {
     if ($window.sessionStorage.loggedUser == null || $window.sessionStorage.token == null) {
-      if (!next.templateUrl == "/partials/login.html" && !next.templateUrl == "/partial/auth.html") {
+      if (!(next.templateUrl == "/partials/login.html" || next.templateUrl == "/partial/auth.html")) {
         $location.path( "/login" );
       }
     }
@@ -50,19 +50,19 @@ app.config(function ($httpProvider) {
   $httpProvider.interceptors.push('authInterceptor');
 });
 
-app.factory('BookList', function() {
-    var items = [];
-    return {
-      books: items,
-      add: function(book) {
-        items.push(book);
-      },
-      addAll: function(books) {
-        items.push.apply(items, books);
-      },
-      remove: function(book) {
-        console.log(items.indexOf(book));
-        return items.splice(items.indexOf(book),1);
-      }
-    };
+app.factory('BookList', function () {
+  var items = [];
+  return {
+    books: items,
+    add: function (book) {
+      items.push(book);
+    },
+    addAll: function (books) {
+      items.push.apply(items, books);
+    },
+    remove: function (book) {
+      console.log(items.indexOf(book));
+      return items.splice(items.indexOf(book), 1);
+    }
+  };
 });
