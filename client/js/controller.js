@@ -11,7 +11,22 @@ function AuthController($routeParams, $http, $location, $window) {
 }
 
 function LoginController($scope) {
+  $scope.login = {
+    username: '',
+    password: ''
+  };
 
+  $scope.registration = {
+    username: '',
+    password: '',
+    password_verify: '',
+    verify: function() {
+      return this.username.length > 0
+          && this.password.length > 4
+          && this.password == this.password_verify;
+    },
+    check: true
+  };
 }
 
 function LogoutController($window, $location) {

@@ -8,7 +8,44 @@ function UsersDAO(db) {
 
   var users = db.collection("users");
 
-  this.create = function(id, username, callback) {
+  this.createAccount = function(username, password, callback) {
+    var user = {
+      _id: username,
+      username: username,
+      password: password,
+      registration_date: new Date(),
+      books: []
+    };
+    this.find(username, function(err, existingUser) {
+      if (err) callback(err, null);
+
+      if (!existingUser) {
+        users.insert(user, function(err, inserted) {
+          if (err) callback(err, null);
+          callback(null, true);
+        });
+      } else {
+        callback(null, false);
+      }
+    });
+  };
+
+  this.verifyAccount = function(username, password, callback) {
+    this.find(username, function(err, existingUser) {
+      if (err) callback(err, null);
+      if (existingUser) {
+        if (existingUser.password == password) {
+          callback(null, true);
+        } else {
+          callback(null, false);
+        }
+      } else {
+        callback(null, false);
+      }
+    });
+  };
+
+  this.createUser = function(id, username, callback) {
     var user = {
       _id: id,
       username: username,
