@@ -2,23 +2,22 @@
   <div class="large-12 columns">
     <div class="panel">
       <h3>Hallo</h3>
-      <p>To get going, this file (index.html) includes some basic styles you can modify, play around with, or totally destroy to get going.</p>
-      <p>Once you've exhausted the fun in this document, you should check out:</p>
+      <p>Bla Bla</p>
       <div class="row">
         <div class="large-6 medium-6 columns">
           <h4>Login</h4>
           <input type="text" ng-model="login.username" placeholder="Benutzername" class="form-control">
           <input type="password" ng-model="login.password" placeholder="Password" class="form-control">
-          <a href class="small button">Login</a>
+          <a href class="small button" ng-click="login.verify()">Login</a>
         </div>
         <div class="large-6 medium-6 columns">
           <h4>Registrieren</h4>
           <input type="text" ng-model="registration.username" placeholder="Benutzername" class="form-control">
           <input type="password" ng-model="registration.password" placeholder="Password" class="form-control">
           <input type="password" ng-model="registration.password_verify" placeholder="Password bestätigen" class="form-control">
-          <a href ng-show="registration.verify()" class="small button">Registrieren</a>
+          <a href ng-show="registration.verify()" class="small button" ng-click="registration.create()">Registrieren</a>
           <a href ng-hide="registration.verify()" class="small button disabled" >Registrieren*</a>
-          <span ng-hide="registration.verify()" class="secondary label">* Passwort muss mindestens 4 Zeichen haben</span>
+          <span ng-hide="registration.verify()" class="secondary label">* Passwort muss mindestens 5 Zeichen haben</span>
         </div>
       </div>
       <div class="row">

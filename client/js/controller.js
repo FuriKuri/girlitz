@@ -10,10 +10,21 @@ function AuthController($routeParams, $http, $location, $window) {
       });
 }
 
-function LoginController($scope) {
+function LoginController($scope, $http, $window, $location) {
   $scope.login = {
     username: '',
-    password: ''
+    password: '',
+    verify: function() {
+      $http.post('/account/verify', this)
+          .success(function (data, status, headers, config) {
+            $window.sessionStorage.loggedUser = data.username;
+            $window.sessionStorage.token = data.token;
+            $location.url('/');
+          })
+          .error(function (data, status, headers, config) {
+            $scope.login.password = '';
+          });
+    }
   };
 
   $scope.registration = {
@@ -25,7 +36,15 @@ function LoginController($scope) {
           && this.password.length > 4
           && this.password == this.password_verify;
     },
-    check: true
+    create: function() {
+      $http.post('/account/register', this)
+          .success(function (data, status, headers, config) {
+            $window.sessionStorage.loggedUser = data.username;
+            $window.sessionStorage.token = data.token;
+            $location.url('/');
+          })
+          .error();
+    }
   };
 }
 

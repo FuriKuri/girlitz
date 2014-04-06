@@ -1,3 +1,5 @@
+var jwt = require('jsonwebtoken');
+
 var UsersDAO = require('../users').UsersDAO;
 
 function AccountHandler(db) {
@@ -9,7 +11,12 @@ function AccountHandler(db) {
 
     users.createAccount(req.body.username, req.body.password, function(err, created) {
       if (created) {
-        res.json({message: 'ok'});
+        var profile = {'id' : req.body.username, 'username': req.body.username};
+        var token = jwt.sign(profile, process.env['TOKEN_SECRET'], { expiresInMinutes: 60 * 24 * 30 });
+          res.json({
+            "username" : req.body.username,
+            "token" : token
+          });
       } else {
         res.json(400, {message: 'error'});
       }
@@ -21,7 +28,12 @@ function AccountHandler(db) {
 
     users.verifyAccount(req.body.username, req.body.password, function(err, success) {
       if (success) {
-        res.json({message: 'ok'});
+        var profile = {'id' : req.body.username, 'username': req.body.username};
+        var token = jwt.sign(profile, process.env['TOKEN_SECRET'], { expiresInMinutes: 60 * 24 * 30 });
+        res.json({
+          "username" : req.body.username,
+          "token" : token
+        });
       } else {
         res.json(400, {message: 'error'});
       }
