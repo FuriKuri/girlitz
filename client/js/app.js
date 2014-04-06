@@ -3,7 +3,7 @@ var app = angular.module("app", ['ngRoute']);
 app.config(function ($routeProvider) {
   $routeProvider.
       when('/', { templateUrl: '/partial/books.html', controller: BookListController }).
-      when('/auth', { templateUrl: '/partial/auth.html', controller: AuthController }).
+      when('/auth/github', { templateUrl: '/partial/auth.html', controller: AuthController }).
       when('/login', { templateUrl: '/partial/login.html' }).
       when('/logout', { templateUrl: '/html/login.html', controller: LogoutController }).
       otherwise({ redirectTo: '/'});
@@ -19,7 +19,7 @@ app.run(function($rootScope, $location, $window) {
   });
 
   if ($window.sessionStorage.loggedUser == null || $window.sessionStorage.token == null) {
-    if (!($location.$$path == "/auth" || $location.$$path == "/login")) {
+    if (!($location.$$path == "/auth/github" || $location.$$path == "/login")) {
       $location.path( "/login" );
     }
   }

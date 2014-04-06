@@ -9,7 +9,7 @@ module.exports = exports = function(app, db) {
   var gitHubHandler = new GitHubHandler(db);
   var bookHandler = new BookHandler(db);
   app.get('/html/login.html', contentHandler.displayMainPage);
-  app.get('/app/callback', callbackHandler.handleCallback);
+  app.get('/callback/github', callbackHandler.handleCallback);
   app.get('/app/login/github', gitHubHandler.login);
 
   app.get('/api/books', bookHandler.list);

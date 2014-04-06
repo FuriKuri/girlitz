@@ -7,8 +7,8 @@ function CallbackHandler() {
   this.handleCallback = function (req, res) {
     "use strict";
     var code = req.query.code;
-    res.location("/#/auth");
-    res.redirect("/#/auth?code=" + code);
+    res.location("/#/auth/github");
+    res.redirect("/#/auth/github?code=" + code);
   }
 }
 module.exports = CallbackHandler;
