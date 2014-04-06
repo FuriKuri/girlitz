@@ -4,7 +4,7 @@ app.config(function ($routeProvider) {
   $routeProvider.
       when('/', { templateUrl: '/partial/books.html', controller: BookListController }).
       when('/auth/github', { templateUrl: '/partial/auth.html', controller: AuthController }).
-      when('/login', { templateUrl: '/partial/login.html' }).
+      when('/login', { templateUrl: '/partial/login.html', controller: LoginController }).
       when('/logout', { templateUrl: '/html/login.html', controller: LogoutController }).
       otherwise({ redirectTo: '/'});
 });

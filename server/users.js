@@ -32,7 +32,7 @@ function UsersDAO(db) {
   this.update = function(user, callback) {
     users.save(user, function(err, updated) {
       if (err) callback(err, null);
-      callback(user, null);
+      callback(null, user);
     });
   };
 

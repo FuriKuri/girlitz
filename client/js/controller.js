@@ -1,4 +1,4 @@
-function AuthController($routeParams, $http, $location, $window, $scope) {
+function AuthController($routeParams, $http, $location, $window) {
   $http.get('/app/login/github?code=' + $routeParams.code)
       .success(function (data, status, headers, config) {
         $window.sessionStorage.loggedUser = data.username;
@@ -8,6 +8,10 @@ function AuthController($routeParams, $http, $location, $window, $scope) {
       .error(function (data, status, headers, config) {
         $location.path('/login');
       });
+}
+
+function LoginController($scope) {
+
 }
 
 function LogoutController($window, $location) {
