@@ -1,3 +1,5 @@
+var bcrypt = require('bcrypt');
+
 function UsersDAO(db) {
   "use strict";
 
@@ -8,37 +10,67 @@ function UsersDAO(db) {
 
   var users = db.collection("users");
 
+  function find(id, callback) {
+    users.findOne({_id: id}, function(err, user) {
+      if (err) callback(err, null);
+      callback(null, user);
+    });
+  }
+
+  this.find = function(id, callback) {
+    find(id, callback);
+  };
+
+  function createHash(password, callback) {
+    bcrypt.genSalt(10, function (err, salt) {
+      bcrypt.hash(password, salt, function (err, hash) {
+        if (err) callback(err, null);
+
+        callback(null, hash);
+      });
+    });
+
+  }
+
   this.createAccount = function(username, password, callback) {
-    var user = {
-      _id: username,
-      username: username,
-      password: password,
-      registration_date: new Date(),
-      books: []
-    };
-    this.find(username, function(err, existingUser) {
+    createHash(password, function(err, hash) {
       if (err) callback(err, null);
 
-      if (!existingUser) {
-        users.insert(user, function(err, inserted) {
-          if (err) callback(err, null);
-          callback(null, true);
-        });
-      } else {
-        callback(null, false);
-      }
+      var user = {
+        _id: username,
+        username: username,
+        password: hash,
+        registration_date: new Date(),
+        books: []
+      };
+      find(username, function(err, existingUser) {
+        if (err) callback(err, null);
+
+        if (!existingUser) {
+          users.insert(user, function(err, inserted) {
+            if (err) callback(err, null);
+            callback(null, true);
+          });
+        } else {
+          callback(null, false);
+        }
+      });
     });
   };
 
   this.verifyAccount = function(username, password, callback) {
-    this.find(username, function(err, existingUser) {
+    find(username, function(err, existingUser) {
       if (err) callback(err, null);
       if (existingUser) {
-        if (existingUser.password == password) {
-          callback(null, true);
-        } else {
-          callback(null, false);
-        }
+        bcrypt.compare(password, existingUser.password, function(err, result) {
+          if (err) callback(err, null);
+
+          if (result == true) {
+            callback(null, true);
+          } else {
+            callback(null, false);
+          }
+        });
       } else {
         callback(null, false);
       }
@@ -52,7 +84,7 @@ function UsersDAO(db) {
       registration_date: new Date(),
       books: []
     };
-    this.find(id, function(err, existingUser) {
+    find(id, function(err, existingUser) {
       if (err) callback(err, null);
 
       if (!existingUser) {
@@ -68,13 +100,6 @@ function UsersDAO(db) {
 
   this.update = function(user, callback) {
     users.save(user, function(err, updated) {
-      if (err) callback(err, null);
-      callback(null, user);
-    });
-  };
-
-  this.find = function(id, callback) {
-    users.findOne({_id: id}, function(err, user) {
       if (err) callback(err, null);
       callback(null, user);
     });
