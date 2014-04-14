@@ -15,6 +15,8 @@ function LoginController($scope, $http, $window, $location) {
     username: '',
     password: '',
     verify: function() {
+      $scope.registerError = false;
+      $scope.loginError = false;
       $http.post('/account/verify', this)
           .success(function (data, status, headers, config) {
             $window.sessionStorage.loggedUser = data.username;
@@ -23,6 +25,7 @@ function LoginController($scope, $http, $window, $location) {
           })
           .error(function (data, status, headers, config) {
             $scope.login.password = '';
+            $scope.loginError = true;
           });
     }
   };
@@ -37,13 +40,18 @@ function LoginController($scope, $http, $window, $location) {
           && this.password == this.password_verify;
     },
     create: function() {
+      $scope.registerError = false;
+      $scope.loginError = false;
       $http.post('/account/register', this)
           .success(function (data, status, headers, config) {
             $window.sessionStorage.loggedUser = data.username;
             $window.sessionStorage.token = data.token;
             $location.url('/');
           })
-          .error();
+          .error(
+          function (data, status, headers, config) {
+            $scope.registerError = true;
+          });
     }
   };
 }
